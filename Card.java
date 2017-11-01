@@ -1,3 +1,5 @@
+package javafxapplication5;
+
 
 import javafx.scene.image.Image;
 
