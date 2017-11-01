@@ -3,6 +3,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /* Shown at program start; Holds a DealerPane, up to three total PlayerPanes and/or LoginPanes, and a menu bar. Is the primary pane that users look at.
  * @author Brandon
@@ -33,9 +34,10 @@ public class BlackjackPane {
 
         //<editor-fold desc="Player Panes" defaultstate="collapsed">
         HBox playerPanes = new HBox();
-        //Pane1
-        //Pane2
-        //Pane3
+        PlayerPane player1 = new PlayerPane();
+        PlayerPane player2 = new PlayerPane();
+        PlayerPane player3 = new PlayerPane();
+        playerPanes.getChildren().addAll(player1.getPlayerPane(), player2.getPlayerPane(), player3.getPlayerPane());
         //</editor-fold>
 
         blackjack.setTop(menuBar);

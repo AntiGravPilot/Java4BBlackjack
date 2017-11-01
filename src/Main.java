@@ -26,7 +26,7 @@ public class Main extends Application {
         BlackjackPane blackjack = new BlackjackPane();
         layout = blackjack.getBlackjack();
 
-        Scene scene = new Scene(layout, 1200, 800);
+        Scene scene = new Scene(layout, 1200, 900);
         window.setScene(scene);
         window.show();
     }
