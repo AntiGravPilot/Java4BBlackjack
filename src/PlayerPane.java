@@ -19,6 +19,7 @@ public class PlayerPane extends Pane {
 
     public PlayerPane(){
         playerPane = new VBox();
+        playerPane.setId("game-pane");
         playerPane.setPadding(new Insets(10,10,10,10));
         playerPane.setMinSize(400,400);
         playerPane.setMaxSize(400, 400); // Optional, can remove
@@ -58,6 +59,7 @@ public class PlayerPane extends Pane {
         bottom.setPadding(new Insets(10,10,10,10));
 
         Button playerHit = new Button("Hit");
+        playerHit.minWidth(40);
         playerExit.setOnAction(e -> { /* todo Player hits */ });
 
         Button playerStay = new Button("Stay");
