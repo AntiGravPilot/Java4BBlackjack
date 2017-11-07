@@ -59,7 +59,6 @@ public class PlayerPane extends Pane {
         bottom.setPadding(new Insets(10,10,10,10));
 
         Button playerHit = new Button("Hit");
-        playerHit.minWidth(40);
         playerExit.setOnAction(e -> { /* todo Player hits */ });
 
         Button playerStay = new Button("Stay");

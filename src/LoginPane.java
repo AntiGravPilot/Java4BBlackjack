@@ -15,6 +15,7 @@ public class LoginPane {
 
     public LoginPane(){
         loginPane = new VBox();
+        loginPane.setId("game-pane");
         loginPane.setPadding(new Insets(10,10,10,10));
         loginPane.setMinSize(400,400);
         loginPane.setMaxSize(400, 400); // Optional, can remove

@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
  */
 public class BlackjackPane {
     BorderPane blackjack;
+    DealerPane dealerPane;
     PlayerPane player1;
     PlayerPane player2;
     LoginPane player3;
@@ -29,11 +30,6 @@ public class BlackjackPane {
         menuBar.getMenus().addAll(file);
         //</editor-fold>
 
-        //<editor-fold desc="Dealer Pane" defaultstate="collapsed">
-        BorderPane dealerPane = new BorderPane();
-        //Pane1
-        //</editor-fold>
-
         //<editor-fold desc="Player Panes" defaultstate="collapsed">
         // todo Proper way to switch between PlayerPane and LoginPane
         HBox playerPanes = new HBox();
@@ -43,8 +39,12 @@ public class BlackjackPane {
         playerPanes.getChildren().addAll(player1.getPlayerPane(), player2.getPlayerPane(), player3.getPlayerPane());
         //</editor-fold>
 
+        //<editor-fold desc="Dealer Pane" defaultstate="collapsed">
+        dealerPane = new DealerPane();
+        //</editor-fold>
+
         blackjack.setTop(menuBar);
-        //blackjack.setCenter(dealerPane);
+        blackjack.setCenter(dealerPane.getDealerPane());
         blackjack.setBottom(playerPanes);
 
     }

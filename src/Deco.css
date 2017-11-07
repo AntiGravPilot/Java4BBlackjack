@@ -9,7 +9,7 @@
 
 /* Uses a style on all label objects */
 .label{
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #e8e8e8;
 }
 
 /* Uses a style on all button objects. Also, we can do gradients, which is cool. */
@@ -25,5 +25,9 @@
 }
 
 #game-pane{
-    -fx-background-color: #008800;
+    -fx-background-color: #006600;
+}
+
+#test-pane{
+    -fx-background-color: #440000;
 }

@@ -26,8 +26,7 @@ public class Main extends Application {
         BlackjackPane blackjack = new BlackjackPane();
         layout = blackjack.getBlackjack();
 
-        Scene scene = new Scene(layout, 1200, 900);
-
+        Scene scene = new Scene(layout, 1200, 820);
         scene.getStylesheets().add("Deco.css");
         window.setScene(scene);
         window.show();
