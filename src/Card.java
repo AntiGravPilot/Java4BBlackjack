@@ -1,15 +1,12 @@
+package blackjackproto;
+
 import javafx.scene.image.Image;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//This object represents a single card
+//Ace has a value of 11, and all face cards have a value of 10
 
-/**
- *
- * @author mnelson39
- */
+//Author Max Nelson
+
 public class Card
 {
     int value;
