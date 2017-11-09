@@ -15,20 +15,25 @@ public class PlayersMain {
     public static void main(String[] args) {
         
    BlackJackPlayers bplayers= new BlackJackPlayers();
-        
+         boolean can_play = false;
         //Player john = new Player("john");
         try {
             bplayers.loadPlayersFile();
-            bplayers.addPlayer("john");
-            bplayers.addPlayer("jack");
-            bplayers.addPlayer("anna");
-            bplayers.loginPlayer("wilson");
+            bplayers.loginPlayer("john");
             bplayers.loginPlayer("jack");
-            bplayers.play("jack");
-            bplayers.lose("jack");
-            bplayers.play("wilson");
-            bplayers.lose("wilson");
-            bplayers.play("john");
+            bplayers.loginPlayer("anna");
+            bplayers.loginPlayer("wilson");
+            //bplayers.loginPlayer("jack");
+            //bplayers.ante("jack");
+            can_play = bplayers.ante("jack");
+            if (!can_play)
+                System.out.println("This guy is broke and can not play..." );
+            if (can_play) bplayers.lose("jack");
+            can_play = bplayers.ante("wilson");
+            if (!can_play)
+                System.out.println("This guy is broke and can not play..." );
+            //bplayers.lose("wilson");
+            bplayers.ante("john");
             System.out.println("After john playing");
             bplayers.blackjack("john");
             bplayers.printPlayers();

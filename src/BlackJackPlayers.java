@@ -103,14 +103,39 @@ public class BlackJackPlayers {
         return 0;
     }
    
-    //bets 10 points to be able to play a game of Black Jack. 
-    public void play(String cplayer){
+    //bets 10 points to be able to ante a game of Black Jack. 
+    public boolean ante(String cplayer){
         Player player_play;
         
         player_play = getPlayer(cplayer);
-        player_play.play();
-        updatePlayersFile();       
+        if ( player_play.getPoints() < 10 )
+        {
+            deletePlayer(cplayer);
+            return false;
+        }
+        else
+        {
+            player_play.play();
+            updatePlayersFile();
+            return true;
+        }
     }
+    
+    //Delete Player when has no points left.
+    public boolean deletePlayer(String dplayer)
+    {
+        Player player_delete = null;
+        player_delete = getPlayer(dplayer);
+        if (player_delete != null )
+        {
+            players.remove(player_delete);
+            updatePlayersFile();
+            return true;
+        }
+        else
+            return false;
+    }
+    
     
     //adds 20 points to player and updates player file
     public void win(String cplayer){
