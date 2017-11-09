@@ -1,3 +1,5 @@
+package blackjack09;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,11 +14,9 @@ import javafx.scene.layout.StackPane;
  */
 public class DealerPane {
     BorderPane dealerPane;
-    Deck deckOfCards;
     Hand handOfCards;
-    int remainingCards;
 
-    public DealerPane(PlayerPane p1, PlayerPane p2, PlayerPane p3){
+    public DealerPane(Deck deckOfCards, PlayerPane p1, PlayerPane p2, PlayerPane p3){
         dealerPane = new BorderPane();
         dealerPane.setId("game-pane");
         dealerPane.setPadding(new Insets(10,10,10,10));
@@ -25,9 +25,9 @@ public class DealerPane {
 
         //Variable definitions
         //todo Fix filepath for deckOfCards
-        deckOfCards = new Deck("./Cards/");
         handOfCards = new Hand();
-        remainingCards = 52;
+        handOfCards.draw(deckOfCards, 2);
+        //handOfCards.cards.get(1).flip();
 
         //<editor-fold desc="Top Pane" defaultstate="collapsed">
         Pane dealerTop = new Pane();
@@ -53,7 +53,10 @@ public class DealerPane {
         Pane dealerBot = new Pane();
 
         Button buttonStart = new Button("Start Game");
-        buttonStart.setOnAction( e -> { /* todo Game starts here */} );
+        buttonStart.setOnAction( e -> 
+        {
+            
+        } );
 
         dealerBot.getChildren().addAll(buttonStart);
         //</editor-fold>
@@ -83,7 +86,7 @@ public class DealerPane {
                 iv.setPreserveRatio(true);
                 iv.setSmooth(true);
                 iv.setCache(true);
-                iv.setX(50 * i);
+                iv.setTranslateX(50 * i);
 
                 render.getChildren().add(iv);
             }

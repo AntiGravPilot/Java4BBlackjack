@@ -1,9 +1,14 @@
+package blackjack09;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /* Shown after successful login; holds a hand of cards, displays the player name and score, has buttons to either hit or stay, and has an exit button to log the player out. Should be visually similar to LoginPane.
@@ -18,7 +23,11 @@ public class PlayerPane extends Pane {
     //User myUser; //No User object currently exists
     Hand myHand;
 
-    public PlayerPane(){
+    public PlayerPane(Deck deckOfCards)
+    {
+        myHand = new Hand();
+        myHand.draw(deckOfCards, 2);
+        
         playerPane = new VBox();
         playerPane.setId("game-pane");
         playerPane.setPadding(new Insets(10,10,10,10));
@@ -48,8 +57,9 @@ public class PlayerPane extends Pane {
 
         //<editor-fold desc="Middle section (standin)" defaultstate="collapsed"
         //todo Rendering a hand of cards properly
-        Pane middle = new Pane();
+        StackPane middle = new StackPane();
         middle.setPrefHeight(350);
+        renderCards(middle, myHand);
         //</editor-fold>
 
         //<editor-fold desc="Bottom section" defaultstate="collapsed"
@@ -60,10 +70,34 @@ public class PlayerPane extends Pane {
         bottom.setPadding(new Insets(10,10,10,10));
 
         Button playerHit = new Button("Hit");
-        playerExit.setOnAction(e -> { /* todo Player hits */ });
+        playerHit.setOnAction(e -> 
+            { 
+                if(myHand.valueOf() <= 21)
+                {
+                    myHand.draw(deckOfCards); 
+                    if(myHand.valueOf() > 21)
+                    {
+                        System.out.println(myHand.valueOf() + " is Busted!");
+                    }
+                    else if(myHand.valueOf() == 21)
+                    {
+                        System.out.println("BlackJack!");
+                    }
+                    else
+                    {
+                        System.out.println("Your hand is now worth " + myHand.valueOf());
+                    }
+                    
+                    renderCards(middle, myHand);
+                }
+                else
+                {
+                    System.out.println("You are BUSTED!!!");
+                }
+            });
 
         Button playerStay = new Button("Stay");
-        playerExit.setOnAction(e -> { /* todo Player stays */ });
+        playerStay.setOnAction(e -> { /* todo Player stays */ });
 
         // todo consider "Show Hand" button or method
 
@@ -95,4 +129,29 @@ public class PlayerPane extends Pane {
         this.score = score;
     }
     //</editor-fold>
+    
+    
+    //copy pasted shamelessly from dealer pane
+    public StackPane renderCards(StackPane render, Hand hand) {
+        if (hand.cards.size() == 0) {
+            System.out.println("Can't render - No Cards");
+            return render;
+        } else {
+            int numCards = hand.cards.size();
+
+            for (int i = 0; i < numCards; i++) {
+                Image card = hand.cards.get(i).getImage();
+
+                ImageView iv = new ImageView(card);
+                iv.setFitWidth(200);
+                iv.setPreserveRatio(true);
+                iv.setSmooth(true);
+                iv.setCache(true);
+                iv.setTranslateX((50 * i) - 90);
+
+                render.getChildren().add(iv);
+            }
+            return render;
+        }
+    }
 }

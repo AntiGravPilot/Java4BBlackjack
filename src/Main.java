@@ -1,3 +1,5 @@
+package blackjack09;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -23,7 +25,7 @@ public class Main extends Application {
 
         BorderPane layout;
 
-        BlackjackPane blackjack = new BlackjackPane();
+        BlackjackPane blackjack = new BlackjackPane(primaryStage);
         layout = blackjack.getBlackjack();
 
         Scene scene = new Scene(layout, 1200, 820);
