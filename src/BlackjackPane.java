@@ -12,7 +12,7 @@ public class BlackjackPane {
     DealerPane dealerPane;
     PlayerPane player1;
     PlayerPane player2;
-    LoginPane player3;
+    PlayerPane player3;
 
     // Creates the Blackjack pane
     public BlackjackPane(){
@@ -35,12 +35,12 @@ public class BlackjackPane {
         HBox playerPanes = new HBox();
         player1 = new PlayerPane();
         player2 = new PlayerPane();
-        player3 = new LoginPane();
+        player3 = new PlayerPane();
         playerPanes.getChildren().addAll(player1.getPlayerPane(), player2.getPlayerPane(), player3.getPlayerPane());
         //</editor-fold>
 
         //<editor-fold desc="Dealer Pane" defaultstate="collapsed">
-        dealerPane = new DealerPane();
+        dealerPane = new DealerPane(player1, player2, player3);
         //</editor-fold>
 
         blackjack.setTop(menuBar);

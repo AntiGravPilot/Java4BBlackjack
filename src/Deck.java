@@ -2,12 +2,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javafx.scene.image.Image;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author mnelson39
@@ -16,8 +10,7 @@ public class Deck
 {  
     ArrayList<Card> cards;
     
-    Deck(String imageFolder)
-    {
+    Deck(String imageFolder){
         cards = Deck.newDeck(imageFolder);
     }
     
@@ -38,8 +31,7 @@ public class Deck
         Collections.shuffle(cards);
     }
     
-    public static ArrayList<Card> newDeck(String folder)
-    {
+    public static ArrayList<Card> newDeck(String folder){
         ArrayList<Card> retVal = new ArrayList();
         
         int value = 0;
@@ -74,7 +66,7 @@ public class Deck
                     default: suitName = "joker";
                     break;
                 }
-                System.out.println(suitName + Integer.toString(rank));
+                System.out.println(folder + suitName + Integer.toString(rank) + ".png");
                 retVal.add(new Card(value, new Image(folder + suitName + Integer.toString(rank) + ".png"), new Image(folder + "back.png")));
             }
             

@@ -28,6 +28,7 @@
     -fx-background-color: #006600;
 }
 
+/* Use to help find the pane you're working with */
 #test-pane{
     -fx-background-color: #440000;
 }

@@ -14,6 +14,7 @@ public class PlayerPane extends Pane {
     private String name;
     private int score;
 
+
     //User myUser; //No User object currently exists
     Hand myHand;
 
