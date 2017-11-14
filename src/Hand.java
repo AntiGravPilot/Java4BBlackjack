@@ -1,5 +1,3 @@
-package blackjack09;
-
 import java.util.ArrayList;
 
 //This Object represents the cards that belong to one player.

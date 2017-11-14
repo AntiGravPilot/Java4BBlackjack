@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,15 +11,18 @@ import javafx.scene.layout.VBox;
  * @author Brandon
  */
 public class LoginPane {
-    VBox loginPane;
+    VBox visiblePane;
+    PlayerPane player;
 
-    public LoginPane(){
-        loginPane = new VBox();
-        loginPane.setId("game-pane");
-        loginPane.setPadding(new Insets(10,10,10,10));
-        loginPane.setMinSize(400,400);
-        loginPane.setMaxSize(400, 400); // Optional, can remove
-        loginPane.setAlignment(Pos.TOP_CENTER); //sets overall alignment
+    public LoginPane(PlayerPane player){
+        this.player = player;
+
+        visiblePane = new VBox();
+        visiblePane.setId("game-pane");
+        visiblePane.setPadding(new Insets(10,10,10,10));
+        visiblePane.setMinSize(400,400);
+        visiblePane.setMaxSize(400, 400); // Optional, can remove
+        visiblePane.setAlignment(Pos.TOP_CENTER); //sets overall alignment
 
         //<editor-fold desc="Top section" defaultstate="collapsed"
         HBox top = new HBox();
@@ -51,21 +52,41 @@ public class LoginPane {
         bottom.setSpacing(100);
         bottom.setPadding(new Insets(10,10,10,10));
 
+        HBox pane = new HBox();
+        Button playerExit = new Button("Exit");
+        pane.getChildren().add(playerExit);
+        playerExit.setOnAction(e -> {
+            visiblePane.getChildren().clear();
+            visiblePane.getChildren().addAll(top, middle, bottom);
+        });
+
         Button loginNew = new Button("New");
-        loginNew.setOnAction(e -> { /* todo New player login */ });
+        loginNew.setOnAction(e -> {
+            /* todo Implement save as new user */
+            visiblePane.getChildren().clear();
+            visiblePane.getChildren().addAll(pane, player.top, player.middle, player.bottom);
+        });
 
         Button loginLoad = new Button("Load");
-        loginLoad.setOnAction(e -> { /* todo Load player login */ });
+        loginLoad.setOnAction(e -> {
+            /* todo Implement load from save file */
+            visiblePane.getChildren().clear();
+            visiblePane.getChildren().addAll(pane, player.top, player.middle, player.bottom);
+        });
 
         bottom.getChildren().addAll(loginNew, loginLoad);
         //</editor-fold>
 
-        loginPane.getChildren().addAll(top, middle, bottom);
+        visiblePane.getChildren().addAll(top, middle, bottom);
     }
 
     //<editor-fold desc="Getters and Setters" defaultstate="collapsed"
+    public VBox getVisiblePane() {
+        return visiblePane;
+    }
+
     public VBox getPlayerPane() {
-        return loginPane;
+        return player.getPlayerPane();
     }
     //</editor-fold>
 }

@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

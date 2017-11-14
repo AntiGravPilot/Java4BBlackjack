@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,8 +17,11 @@ public class PlayerPane extends Pane {
     private String name;
     private int score;
 
+    HBox top;
+    StackPane middle;
+    HBox bottom;
 
-    //User myUser; //No User object currently exists
+    Player myPlayer;
     Hand myHand;
 
     public PlayerPane(Deck deckOfCards)
@@ -36,14 +37,11 @@ public class PlayerPane extends Pane {
         playerPane.setAlignment(Pos.TOP_CENTER); //sets overall alignment
 
         //<editor-fold desc="Top section" defaultstate="collapsed"
-        HBox top = new HBox();
+        top = new HBox();
         top.setAlignment(Pos.TOP_CENTER);
         top.setPrefHeight(50);
         top.setSpacing(100);
         top.setPadding(new Insets(10,10,10,10));
-
-        Button playerExit = new Button("Exit");
-        playerExit.setOnAction(e -> { /* todo Player leaves game / exit method */ });
 
         this.setName("Player");
         Label playerName = new Label(name);
@@ -52,18 +50,18 @@ public class PlayerPane extends Pane {
         this.setScore(0);
         Label playerScore = new Label(Integer.toString(score));
 
-        top.getChildren().addAll(playerExit, playerName, playerScore);
+        top.getChildren().addAll(playerName, playerScore);
         //</editor-fold>
 
         //<editor-fold desc="Middle section (standin)" defaultstate="collapsed"
         //todo Rendering a hand of cards properly
-        StackPane middle = new StackPane();
+        middle = new StackPane();
         middle.setPrefHeight(350);
         renderCards(middle, myHand);
         //</editor-fold>
 
         //<editor-fold desc="Bottom section" defaultstate="collapsed"
-        HBox bottom = new HBox();
+        bottom = new HBox();
         bottom.setAlignment(Pos.BOTTOM_CENTER);
         bottom.setPrefHeight(50);
         bottom.setSpacing(100);

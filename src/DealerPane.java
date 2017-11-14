@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,7 +40,6 @@ public class DealerPane {
 
         //Left
         StackPane dealerLeft = new StackPane();
-        //todo Uncomment when filepathing is fixed for cards and for card render testing
         renderCards(dealerLeft, handOfCards);
 
 

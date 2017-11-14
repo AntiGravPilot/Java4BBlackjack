@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -16,6 +14,11 @@ public class BlackjackPane {
     PlayerPane player1;
     PlayerPane player2;
     PlayerPane player3;
+    LoginPane login1;
+    LoginPane login2;
+    LoginPane login3;
+
+    Deck deckOfCards = new Deck();
 
     // Creates the Blackjack pane
     public BlackjackPane(Stage primaryStage){
@@ -33,16 +36,19 @@ public class BlackjackPane {
         menuBar.getMenus().addAll(file);
         //</editor-fold>
 
-        Deck deckOfCards = new Deck();
         deckOfCards.shuffle();
         
         //<editor-fold desc="Player Panes" defaultstate="collapsed">
         // todo Proper way to switch between PlayerPane and LoginPane
-        HBox playerPanes = new HBox();
         player1 = new PlayerPane(deckOfCards);
         player2 = new PlayerPane(deckOfCards);
         player3 = new PlayerPane(deckOfCards);
-        playerPanes.getChildren().addAll(player1.getPlayerPane(), player2.getPlayerPane(), player3.getPlayerPane());
+
+        HBox playerPanes = new HBox();
+        login1 = new LoginPane(player1);
+        login2 = new LoginPane(player2);
+        login3 = new LoginPane(player3);
+        playerPanes.getChildren().addAll(login1.getVisiblePane(), login2.getVisiblePane(), login3.getVisiblePane());
         //</editor-fold>
 
         //<editor-fold desc="Dealer Pane" defaultstate="collapsed">
@@ -59,4 +65,5 @@ public class BlackjackPane {
     public BorderPane getBlackjack(){
         return blackjack;
     }
+
 }

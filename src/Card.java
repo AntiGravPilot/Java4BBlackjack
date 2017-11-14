@@ -1,5 +1,3 @@
-package blackjack09;
-
 import javafx.scene.image.Image;
 
 //This object represents a single card

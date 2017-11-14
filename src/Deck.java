@@ -1,5 +1,3 @@
-package blackjack09;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import javafx.scene.image.Image;
