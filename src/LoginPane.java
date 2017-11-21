@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 public class LoginPane {
     VBox visiblePane;
     PlayerPane player;
+    Player myPlayer;
 
     public LoginPane(PlayerPane player){
         this.player = player;
@@ -63,19 +64,14 @@ public class LoginPane {
 
         Button loginNew = new Button("New");
         loginNew.setOnAction(e -> {
-            /* todo Implement save as new user */
             visiblePane.getChildren().clear();
             visiblePane.getChildren().addAll(pane, player.top, player.middle, player.bottom);
+
+            myPlayer = BlackjackPane.playerList.loginPlayer(usernameField.getText());
+            player.setPlayer(myPlayer);
         });
 
-        Button loginLoad = new Button("Load");
-        loginLoad.setOnAction(e -> {
-            /* todo Implement load from save file */
-            visiblePane.getChildren().clear();
-            visiblePane.getChildren().addAll(pane, player.top, player.middle, player.bottom);
-        });
-
-        bottom.getChildren().addAll(loginNew, loginLoad);
+        bottom.getChildren().addAll(loginNew);
         //</editor-fold>
 
         visiblePane.getChildren().addAll(top, middle, bottom);

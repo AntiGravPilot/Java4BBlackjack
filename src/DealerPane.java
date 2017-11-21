@@ -39,9 +39,24 @@ public class DealerPane {
         //todo Fix filepath for deckOfCards
         handOfCards = new Hand();
 
-        // todo Implement shit
+        // todo Implement shit, also clone this for p2 and p3
         p1.getStayButton().setOnAction(e -> {
-
+            p1.playerHit.setVisible(false);
+            p1.playerStay.setVisible(false);
+            p1.isDone = true;
+            doWork();
+        });
+        p2.getStayButton().setOnAction(e -> {
+            p2.playerHit.setVisible(false);
+            p2.playerStay.setVisible(false);
+            p2.isDone = true;
+            doWork();
+        });
+        p3.getStayButton().setOnAction(e -> {
+            p3.playerHit.setVisible(false);
+            p3.playerStay.setVisible(false);
+            p3.isDone = true;
+            doWork();
         });
 
         //<editor-fold desc="Top Pane" defaultstate="collapsed">
@@ -169,7 +184,7 @@ public class DealerPane {
     
     void doWork(Deck deckOfCards) //this runs after all players have stayed
     {
-        while((handOfCards.valueOf() < 17 && handOfCards.valueOf() < 22) || 
+        while((handOfCards.valueOf() < 17) ||
                 ((p1 == null || p1.myHand.valueOf() > 21)&&
                  (p2 == null || p2.myHand.valueOf() > 21)&&
                  (p3 == null || p3.myHand.valueOf() > 21)))
@@ -243,6 +258,12 @@ public class DealerPane {
             {
                 gambler.draw();
                 System.out.println(gambler.getName() + " is tied!");
+            }
+            else
+            {
+                System.out.println("something went wrong");
+                System.out.println(pHand.valueOf());
+                System.out.println(dHand.valueOf());
             }
         }
         else

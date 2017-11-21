@@ -9,8 +9,9 @@ import javafx.scene.image.Image;
 //Author Max Nelson
 
 public class Deck
-{  
-    final String defaultImageFolder = "file:\\\\\\C:\\Users\\mnelson39\\Desktop\\PNGcards\\";
+{
+    // todo Make card folder accessible from project folder (should work with ./PNGcards)
+    final String defaultImageFolder = "file:\\\\\\C:\\Users\\bmontes5\\Desktop\\PNGcards\\";
     ArrayList<Card> newDeck;//never changes after initial load
     ArrayList<Card> cards;
     

@@ -5,6 +5,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /* Shown at program start; Holds a DealerPane, up to three total PlayerPanes and/or LoginPanes, and a menu bar. Is the primary pane that users look at.
  * @author Brandon
  */
@@ -18,11 +20,18 @@ public class BlackjackPane {
     LoginPane login2;
     LoginPane login3;
 
+    static BlackJackPlayers playerList = new BlackJackPlayers();
+
     Deck deckOfCards = new Deck();
 
     // Creates the Blackjack pane
-    public BlackjackPane(Stage primaryStage){
+    public BlackjackPane(Stage primaryStage) {
         blackjack =  new BorderPane();
+        try {
+            playerList.loadPlayersFile();
+        } catch (IOException e) {
+            System.out.println("Problem loading players file!");
+        }
 
         //<editor-fold desc="Menus" defaultstate="collapsed">
         Menu file = new Menu("_File");

@@ -29,6 +29,7 @@ public class Main extends Application {
         Scene scene = new Scene(layout, 1200, 820);
         scene.getStylesheets().add("Deco.css");
         window.setScene(scene);
+        //window.setResizable(false);
         window.show();
     }
 }

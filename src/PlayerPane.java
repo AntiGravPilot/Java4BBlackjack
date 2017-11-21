@@ -169,4 +169,8 @@ public class PlayerPane extends Pane {
     public Button getStayButton(){
         return this.playerStay;
     }
+
+    public void setPlayer(Player loadedPlayer){
+        myPlayer = loadedPlayer;
+    }
 }
