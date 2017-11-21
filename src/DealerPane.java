@@ -38,8 +38,11 @@ public class DealerPane {
         //Variable definitions
         //todo Fix filepath for deckOfCards
         handOfCards = new Hand();
-        
-        
+
+        // todo Implement shit
+        p1.getStayButton().setOnAction(e -> {
+
+        });
 
         //<editor-fold desc="Top Pane" defaultstate="collapsed">
         Pane dealerTop = new Pane();

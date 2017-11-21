@@ -165,4 +165,8 @@ public class PlayerPane extends Pane {
         isDone = true;
         //DealerPane.DoWork(); //goes here
     }
+
+    public Button getStayButton(){
+        return this.playerStay;
+    }
 }
