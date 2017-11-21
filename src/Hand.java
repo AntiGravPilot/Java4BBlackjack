@@ -54,5 +54,10 @@ public class Hand
         return (valueOf() - otherHand.valueOf());
     }
     
+    void clear() //empties all cards from a hand
+    {
+        cards = new ArrayList();
+    }
+    
    
 }

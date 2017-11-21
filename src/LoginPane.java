@@ -56,6 +56,7 @@ public class LoginPane {
         Button playerExit = new Button("Exit");
         pane.getChildren().add(playerExit);
         playerExit.setOnAction(e -> {
+            player.myHand.clear();
             visiblePane.getChildren().clear();
             visiblePane.getChildren().addAll(top, middle, bottom);
         });

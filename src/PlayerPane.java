@@ -23,11 +23,14 @@ public class PlayerPane extends Pane {
 
     Player myPlayer;
     Hand myHand;
+    
+    Button playerHit;
+    Button playerStay;
+    Boolean isDone;
 
     public PlayerPane(Deck deckOfCards)
     {
         myHand = new Hand();
-        myHand.draw(deckOfCards, 2);
         
         playerPane = new VBox();
         playerPane.setId("game-pane");
@@ -57,7 +60,6 @@ public class PlayerPane extends Pane {
         //todo Rendering a hand of cards properly
         middle = new StackPane();
         middle.setPrefHeight(350);
-        renderCards(middle, myHand);
         //</editor-fold>
 
         //<editor-fold desc="Bottom section" defaultstate="collapsed"
@@ -67,7 +69,7 @@ public class PlayerPane extends Pane {
         bottom.setSpacing(100);
         bottom.setPadding(new Insets(10,10,10,10));
 
-        Button playerHit = new Button("Hit");
+        playerHit = new Button("Hit");
         playerHit.setOnAction(e -> 
             { 
                 if(myHand.valueOf() <= 21)
@@ -76,6 +78,7 @@ public class PlayerPane extends Pane {
                     if(myHand.valueOf() > 21)
                     {
                         System.out.println(myHand.valueOf() + " is Busted!");
+                        hitStay();
                     }
                     else if(myHand.valueOf() == 21)
                     {
@@ -93,9 +96,11 @@ public class PlayerPane extends Pane {
                     System.out.println("You are BUSTED!!!");
                 }
             });
+        playerHit.setVisible(false);
 
-        Button playerStay = new Button("Stay");
-        playerStay.setOnAction(e -> { /* todo Player stays */ });
+        playerStay = new Button("Stay");
+        playerStay.setOnAction(e -> { hitStay(); });
+        playerStay.setVisible(false);
 
         // todo consider "Show Hand" button or method
 
@@ -151,5 +156,13 @@ public class PlayerPane extends Pane {
             }
             return render;
         }
+    }
+    
+    void hitStay()
+    {
+        playerHit.setVisible(false);
+        playerStay.setVisible(false);
+        isDone = true;
+        //DealerPane.DoWork(); //goes here
     }
 }
