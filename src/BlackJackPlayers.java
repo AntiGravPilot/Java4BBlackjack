@@ -77,7 +77,7 @@ public class BlackJackPlayers {
         else {
             login_player = new Player(name);
             players.add(login_player);
-            //System.out.println("Player was not found in list... Adding Player To Players File.");
+            System.out.println("Player was not found in list... Adding " + name + " to Players File.");
             updatePlayersFile();
         }
         return login_player;

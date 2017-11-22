@@ -17,6 +17,18 @@ public class Player implements Serializable {
         this.name = new_player;
         this.points = 100;
     }
+    
+    public Player(Player copy_player)
+    {
+        this.name = copy_player.name;
+        this.points = copy_player.points;
+    }
+    
+    public Player(String in, long ip)
+    {
+        this.name = in;
+        this.points = ip;
+    }
     /**
      * @return the name
      */

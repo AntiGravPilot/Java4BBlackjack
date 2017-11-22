@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,29 +36,9 @@ public class DealerPane {
         dealerPane.setMinSize(1200,400);
         dealerPane.setMaxSize(1200, 400); // Optional, can remove
 
-        //Variable definitions
-        //todo Fix filepath for deckOfCards
         handOfCards = new Hand();
 
-        // todo Implement shit, also clone this for p2 and p3
-        p1.getStayButton().setOnAction(e -> {
-            p1.playerHit.setVisible(false);
-            p1.playerStay.setVisible(false);
-            p1.isDone = true;
-            doWork();
-        });
-        p2.getStayButton().setOnAction(e -> {
-            p2.playerHit.setVisible(false);
-            p2.playerStay.setVisible(false);
-            p2.isDone = true;
-            doWork();
-        });
-        p3.getStayButton().setOnAction(e -> {
-            p3.playerHit.setVisible(false);
-            p3.playerStay.setVisible(false);
-            p3.isDone = true;
-            doWork();
-        });
+        
 
         //<editor-fold desc="Top Pane" defaultstate="collapsed">
         Pane dealerTop = new Pane();
@@ -72,6 +53,61 @@ public class DealerPane {
 
         //Left
         StackPane dealerLeft = new StackPane();
+        
+        p1.getStayButton().setOnAction(e -> {
+            p1.playerHit.setVisible(false);
+            p1.playerStay.setVisible(false);
+            p1.isDone = true;
+            doWork();
+            renderCards(dealerLeft, handOfCards);
+        });
+        p1.getBustButton().addEventHandler(ActionEvent.ACTION, e -> {
+            p1.HitMe();
+            if(p1.myHand.valueOf() >= 21)
+            {
+                p1.playerHit.setVisible(false);
+                p1.playerStay.setVisible(false);
+                p1.isDone = true;
+                doWork();
+                renderCards(dealerLeft, handOfCards);
+            }
+        });
+        p2.getStayButton().setOnAction(e -> {
+            p2.playerHit.setVisible(false);
+            p2.playerStay.setVisible(false);
+            p2.isDone = true;
+            doWork();
+            renderCards(dealerLeft, handOfCards);
+        });
+        p2.getBustButton().addEventHandler(ActionEvent.ACTION, e -> {
+            p2.HitMe();
+            if(p2.myHand.valueOf() >= 21)
+            {
+                p2.playerHit.setVisible(false);
+                p2.playerStay.setVisible(false);
+                p2.isDone = true;
+                doWork();
+                renderCards(dealerLeft, handOfCards);
+            }
+        });
+        p3.getStayButton().setOnAction(e -> {
+            p3.playerHit.setVisible(false);
+            p3.playerStay.setVisible(false);
+            p3.isDone = true;
+            doWork();
+            renderCards(dealerLeft, handOfCards);
+        });
+        p3.getBustButton().addEventHandler(ActionEvent.ACTION, e -> {
+            p3.HitMe();
+            if(p3.myHand.valueOf() >= 21)
+            {
+                p3.playerHit.setVisible(false);
+                p3.playerStay.setVisible(false);
+                p3.isDone = true;
+                doWork();
+                renderCards(dealerLeft, handOfCards);
+            }
+        });
 
         //Right
         //todo Dealer-side stack of cards, representing the number remaining in the deck. A flipped card with a number on it can do for now.
@@ -84,54 +120,62 @@ public class DealerPane {
         {
             buttonStart.setVisible(false);
             inGame = true;
+            handOfCards.clear();
+            dealerLeft.getChildren().clear();
             handOfCards.draw(deckOfCards, 2);
-            //handOfCards.cards.get(1).flip();
+            handOfCards.cards.get(1).flip();
             renderCards(dealerLeft, handOfCards);           
             
-            if(p1 != null)
+            if(!p1.isNull)
             {
                 p1.isDone = false;
                 p1.myHand.clear();
+                p1.myPlayer.play();//antes
                 p1.myHand.draw(deckOfCards, 2);
                 p1.playerHit.setVisible(true);
                 p1.playerStay.setVisible(true);
-                //remove exit button
+                //hide exit button
                 p1.renderCards(p1.middle, p1.myHand);
             }
             else
             {
-                //remove login pane
+                //hide login button
             }
             
-            if(p2 != null)
+            if(!p2.isNull)
             {
                 p2.myHand.clear();
                 p2.isDone = false;
+                p2.myHand.clear();
+                p2.myPlayer.play();//antes
                 p2.myHand.draw(deckOfCards, 2);
                 p2.playerHit.setVisible(true);
                 p2.playerStay.setVisible(true);
-                //remove exit button
+                //hide exit button
                 p2.renderCards(p2.middle, p2.myHand);
             }
             else
             {
-                //remove login pane
+                //hide login button
             }
             
-            if(p3 != null)
+            if(!p3.isNull)
             {
                 p3.myHand.clear();
                 p3.isDone = false;
+                p3.myHand.clear();
+                p3.myPlayer.play();//antes
                 p3.myHand.draw(deckOfCards, 2);
                 p3.playerHit.setVisible(true);
                 p3.playerStay.setVisible(true);
-                //remove exit button
+                //hide exit
                 p3.renderCards(p3.middle, p3.myHand);
             }
             else
             {
-                //remove login pane
+                //hide login button
             }
+            BlackjackPane.playerList.updatePlayersFile();
         } );
 
         dealerBot.getChildren().addAll(buttonStart);
@@ -150,7 +194,7 @@ public class DealerPane {
 
     //todo Finish this once filepathing is figured out
     public StackPane renderCards(StackPane render, Hand hand) {
-        if (hand.cards.isEmpty()) {
+        if (hand.cards.size() == 0) {
             System.out.println("Can't render - No Cards");
             return render;
         } else {
@@ -174,9 +218,9 @@ public class DealerPane {
     
     void doWork()//this is called from playerpane, and it checks the other panes and controls wether the program moves forwards
     {
-        if((p1 == null || p1.isDone)&&
-           (p2 == null || p2.isDone)&&
-           (p3 == null || p3.isDone))
+        if((p1.isNull || p1.isDone)&&
+           (p2.isNull || p2.isDone)&&
+           (p3.isNull || p3.isDone))
         {
             doWork(deckOfCards);
         }
@@ -184,51 +228,47 @@ public class DealerPane {
     
     void doWork(Deck deckOfCards) //this runs after all players have stayed
     {
-        while((handOfCards.valueOf() < 17) ||
-                ((p1 == null || p1.myHand.valueOf() > 21)&&
-                 (p2 == null || p2.myHand.valueOf() > 21)&&
-                 (p3 == null || p3.myHand.valueOf() > 21)))
+        while((handOfCards.valueOf() < 17) &&
+                ((!p1.isNull && p1.myHand.valueOf() < 22)||
+                 (!p2.isNull && p2.myHand.valueOf() < 22)||
+                 (!p3.isNull && p3.myHand.valueOf() < 22)))
         { //while value of dealers hand is under 17 but nor busted, won't run if all logged in players are busted
+            //System.out.println("drawing for dealer");
             handOfCards.draw(deckOfCards);
         }
+        handOfCards.cards.get(1).flip();
                 
-        if(p1 != null)
+        if(!p1.isNull)
         {
-            modifyPlayerScore(p1.myPlayer, p1.myHand, handOfCards);
-            //reset buttons
-            p1.playerHit.setVisible(true);
-            p1.playerStay.setVisible(true);
+            modifyPlayerScore(p1.myPlayer, p1.myHand, handOfCards);    
+            p1.setScore((int)p1.myPlayer.getPoints());
             //bring back exit button
         }
         else
         {
-            //return login pane
+            //bring back login button
         }
         
-        if(p2 != null)
+        if(!p2.isNull)
         {
-            modifyPlayerScore(p2.myPlayer, p1.myHand, handOfCards);
-            //reset buttons
-            p2.playerHit.setVisible(true);
-            p2.playerStay.setVisible(true);
+            modifyPlayerScore(p2.myPlayer, p2.myHand, handOfCards); 
+            p2.setScore((int)p2.myPlayer.getPoints());
             //bring back exit button
         }
         else
         {
-            //return login pane
+            //bring back login pane
         }
         
-        if(p3 != null)
+        if(!p3.isNull)
         {
-            modifyPlayerScore(p3.myPlayer, p1.myHand, handOfCards);
-            //reset buttons
-            p3.playerHit.setVisible(true);
-            p3.playerStay.setVisible(true);
+            modifyPlayerScore(p3.myPlayer, p3.myHand, handOfCards);
+            p3.setScore((int)p3.myPlayer.getPoints());
             //bring back exit button
         }
         else
         {
-            //return login pane
+            //bring back login pane
         }
         
         buttonStart.setVisible(true);
@@ -244,12 +284,12 @@ public class DealerPane {
                 gambler.blackjack();
                 System.out.println(gambler.getName() + " has blackjack!");
             }
-            else if(pHand.compareTo(dHand) > 0)
+            else if(dHand.valueOf() > 21)
             {
                 gambler.win();
                 System.out.println(gambler.getName() + " wins!");
             }
-            else if(dHand.valueOf() > 21)
+            else if(pHand.compareTo(dHand) > 0)
             {
                 gambler.win();
                 System.out.println(gambler.getName() + " wins!");
@@ -259,18 +299,24 @@ public class DealerPane {
                 gambler.draw();
                 System.out.println(gambler.getName() + " is tied!");
             }
+            else if(pHand.compareTo(dHand) < 0)
+            {
+                gambler.lose();
+                System.out.println(gambler.getName() + " loses!");
+            }
             else
             {
                 System.out.println("something went wrong");
-                System.out.println(pHand.valueOf());
-                System.out.println(dHand.valueOf());
+                System.out.println("player has " + pHand.valueOf());
+                System.out.println("dealer has " + dHand.valueOf());
             }
         }
         else
         {
             gambler.lose();
-            System.out.println(gambler.getName() + " loses!");
+            System.out.println(gambler.getName() + " is Busted!");
         }
+        BlackjackPane.playerList.updatePlayersFile();
         
     }
 }

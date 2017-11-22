@@ -60,15 +60,18 @@ public class LoginPane {
             player.myHand.clear();
             visiblePane.getChildren().clear();
             visiblePane.getChildren().addAll(top, middle, bottom);
+            player.isNull = true;
         });
 
-        Button loginNew = new Button("New");
+        Button loginNew = new Button("Log in");
         loginNew.setOnAction(e -> {
             visiblePane.getChildren().clear();
             visiblePane.getChildren().addAll(pane, player.top, player.middle, player.bottom);
 
             myPlayer = BlackjackPane.playerList.loginPlayer(usernameField.getText());
-            player.setPlayer(myPlayer);
+            player.setPlayer(myPlayer);            
+            player.setScore((int)myPlayer.getPoints());
+            player.isNull = false;
         });
 
         bottom.getChildren().addAll(loginNew);

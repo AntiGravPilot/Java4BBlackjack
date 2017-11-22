@@ -16,6 +16,7 @@ public class PlayerPane extends Pane {
     VBox playerPane;
     private String name;
     private int score;
+    Label stringScore;
 
     HBox top;
     StackPane middle;
@@ -23,14 +24,19 @@ public class PlayerPane extends Pane {
 
     Player myPlayer;
     Hand myHand;
+    Deck deckOfCards;
     
     Button playerHit;
     Button playerStay;
     Boolean isDone;
+    
+    Boolean isNull;
 
-    public PlayerPane(Deck deckOfCards)
+    public PlayerPane(Deck iDeck)
     {
         myHand = new Hand();
+        deckOfCards = iDeck;
+        isNull = true;
         
         playerPane = new VBox();
         playerPane.setId("game-pane");
@@ -50,10 +56,10 @@ public class PlayerPane extends Pane {
         Label playerName = new Label(name);
 
         //todo updatePoints method
-        this.setScore(0);
-        Label playerScore = new Label(Integer.toString(score));
+        score = 0;
+        stringScore = new Label(Integer.toString(score));
 
-        top.getChildren().addAll(playerName, playerScore);
+        top.getChildren().addAll(playerName, stringScore);
         //</editor-fold>
 
         //<editor-fold desc="Middle section (standin)" defaultstate="collapsed"
@@ -69,38 +75,18 @@ public class PlayerPane extends Pane {
         bottom.setSpacing(100);
         bottom.setPadding(new Insets(10,10,10,10));
 
-        playerHit = new Button("Hit");
-        playerHit.setOnAction(e -> 
-            { 
-                if(myHand.valueOf() <= 21)
-                {
-                    myHand.draw(deckOfCards); 
-                    if(myHand.valueOf() > 21)
-                    {
-                        System.out.println(myHand.valueOf() + " is Busted!");
-                        hitStay();
-                    }
-                    else if(myHand.valueOf() == 21)
-                    {
-                        System.out.println("BlackJack!");
-                    }
-                    else
-                    {
-                        System.out.println("Your hand is now worth " + myHand.valueOf());
-                    }
-                    
-                    renderCards(middle, myHand);
-                }
-                else
-                {
-                    System.out.println("You are BUSTED!!!");
-                }
-            });
-        playerHit.setVisible(false);
+        
 
         playerStay = new Button("Stay");
-        playerStay.setOnAction(e -> { hitStay(); });
+        //playerStay.setOnAction(e -> {hitStay();});
         playerStay.setVisible(false);
+        
+        playerHit = new Button("Hit");
+        playerHit.setOnAction(e -> 
+        { 
+            //removed
+        });
+        playerHit.setVisible(false);
 
         // todo consider "Show Hand" button or method
 
@@ -115,7 +101,6 @@ public class PlayerPane extends Pane {
         return playerPane;
     }
 
-
     public String getName() {
         return name;
     }
@@ -128,14 +113,19 @@ public class PlayerPane extends Pane {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore(int newScore) {
+        score = newScore;
+        top.getChildren().clear();
+        top.getChildren().addAll(new Label(myPlayer.getName()), new Label(Integer.toString(score)));
     }
+    
     //</editor-fold>
     
     
     //copy pasted shamelessly from dealer pane
-    public StackPane renderCards(StackPane render, Hand hand) {
+    public StackPane renderCards(StackPane render, Hand hand)
+    {
+        render.getChildren().clear();
         if (hand.cards.size() == 0) {
             System.out.println("Can't render - No Cards");
             return render;
@@ -158,16 +148,39 @@ public class PlayerPane extends Pane {
         }
     }
     
-    void hitStay()
-    {
-        playerHit.setVisible(false);
-        playerStay.setVisible(false);
-        isDone = true;
-        //DealerPane.DoWork(); //goes here
-    }
+    
 
     public Button getStayButton(){
         return this.playerStay;
+    }
+    
+    public Button getBustButton(){
+        return this.playerHit;
+    }
+    
+    public void HitMe()
+    {
+        if(myHand.valueOf() <= 21)
+            {
+                 myHand.draw(deckOfCards);
+                if(myHand.valueOf() > 21)
+                {
+                    System.out.println(myHand.valueOf() + " is Busted!");
+                }
+                else if(myHand.valueOf() == 21)
+                {
+                    System.out.println("BlackJack!");
+                }
+                else
+                {
+                    System.out.println("Your hand is now worth " + myHand.valueOf());
+                }
+                renderCards(middle, myHand);
+            }
+            else
+            {
+                System.out.println("You are BUSTED!!!");
+            }
     }
 
     public void setPlayer(Player loadedPlayer){
